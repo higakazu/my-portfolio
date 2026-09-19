@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taro Yamada | Web Designer Portfolio</title>
+    <!-- 必要なフォントの読み込み (Inter & Noto Sans JP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSSの読み込みとカスタム設定 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        // ご指定のカラースキーム
+                        main: '#2C3E50',
+                        accent: '#E74C3C',
+                        lightbg: '#ECF0F1',
+                        // ダークモード用のカラー設定
+                        darkbg: '#111827',
+                        darkmain: '#F3F4F6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- カスタムCSS (アニメーション用) -->
+    <style>
+        /* スクロール時のフェードインアニメーション用クラス */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ふわっと浮き上がるホバーエフェクト用 */
+        .hover-float {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-float:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-lightbg text-main dark:bg-darkbg dark:text-darkmain transition-colors duration-300 font-sans antialiased">
+
+    <!-- ナビゲーションバー -->
+    <nav class="fixed w-full z-50 top-0 left-0 bg-lightbg/80 dark:bg-darkbg/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="font-bold text-xl tracking-tight text-main dark:text-darkmain transition-colors">
+                        Taro<span class="text-accent">.</span>
+                    </a>
+                </div>
+                <!-- ダークモードトグルボタン -->
+                <div class="flex items-center">
+                    <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg text-sm p-2.5 transition-colors" aria-label="Toggle Dark Mode">
+                        <!-- ライトモード時 (月アイコン) -->
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <!-- ダークモード時 (太陽アイコン) -->
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. ヒーローセクション -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <!-- 背景画像とオーバーレイ -->
+        <div class="absolute inset-0 z-0">
+            <!-- プレースホルダー背景画像 -->
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" alt="Background" class="w-full h-full object-cover object-center opacity-40 dark:opacity-20 transition-opacity duration-300" />
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-lightbg dark:to-darkbg"></div>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center reveal">
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-main dark:text-darkmain">
+                Colors Logic,<br class="md:hidden"> Designs Magic.
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg md:text-xl mx-auto text-main/80 dark:text-darkmain/80 leading-relaxed font-medium">
+                色彩検定１級の知識と確かなコーディング技術で、<br class="hidden md:block">企業の想いを「伝わる」形に。
+            </p>
+            <div class="mt-10 flex justify-center gap-4">
+                <a href="#about" class="px-8 py-3 rounded-full bg-accent text-white font-semibold hover:bg-accent/90 transition-colors shadow-lg hover:shadow-accent/30">
+                    詳細を見る
+                </a>
+                <a href="#contact" class="px-8 py-3 rounded-full border-2 border-main dark:border-darkmain text-main dark:text-darkmain font-semibold hover:bg-main hover:text-lightbg dark:hover:bg-darkmain dark:hover:text-darkbg transition-colors">
+                    お問い合わせ
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 自己紹介セクション (About) -->
+    <section id="about" class="py-24 bg-lightbg dark:bg-darkbg transition-colors duration-300">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- 見出し -->
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold inline-block relative">
+                    Who I AM
+                    <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-16 h-1.5 bg-accent rounded-full"></span>
+                </h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center gap-12 mt-12">
+                <!-- プロフィール画像 -->
+                <div class="w-full md:w-1/3 flex justify-center reveal">
+                    <div class="relative w-56 h-56 md:w-64 md:h-64 rounded-full p-2 border-4 border-white dark:border-gray-800 shadow-xl hover-float bg-white dark:bg-gray-800">
+                        <!-- 清潔感のあるカジュアルな男性のイラスト（プレースホルダー） -->
+                        <img src="https://placehold.co/400x400/2C3E50/ECF0F1?text=Taro+Yamada" alt="山田太郎のプロフィール画像" class="w-full h-full object-cover rounded-full">
+                    </div>
+                </div>
+
+                <!-- プロフィールテキスト -->
+                <div class="w-full md:w-2/3 reveal text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-4 text-main dark:text-darkmain">
+                        Webデザイナー <br class="md:hidden"><span class="text-accent ml-2 text-xl md:text-2xl">山田 太郎</span>
+                    </h3>
+                    <p class="text-lg text-main/80 dark:text-darkmain/80 leading-relaxed mb-6">
+                        「はじめまして、Webデザイナーの山田太郎です。」
+                    </p>
+                    <p class="text-main/70 dark:text-darkmain/70 leading-relaxed mb-6">
+                        論理的な色彩設計と、ユーザー体験（UX）を重視したモダンなデザインを得意としています。色彩検定1級の資格を活かし、ブランドの持つメッセージを視覚的に正確に伝えるカラーパレットをご提案します。
+                    </p>
+                    <p class="text-main/70 dark:text-darkmain/70 leading-relaxed">
+                        また、HTML/CSS/JavaScript等のフロントエンド技術にも精通しており、デザインをただの絵で終わらせず、ピクセルパーフェクトで滑らかに動く「生きたウェブサイト」として実装することが可能です。企業の課題解決に寄り添うパートナーとして、企画から実装まで一貫してサポートいたします。
+                    </p>
+                    
+                    <!-- スキルタグ -->
+                    <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-2">
+                        <span class="px-4 py-1.5 bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-main dark:text-darkmain">UI/UX Design</span>
+                        <span class="px-4 py-1.5 bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-main dark:text-darkmain">Color Theory</span>
+                        <span class="px-4 py-1.5 bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-main dark:text-darkmain">HTML/CSS</span>
+                        <span class="px-4 py-1.5 bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-main dark:text-darkmain">JavaScript</span>
+                        <span class="px-4 py-1.5 bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium text-main dark:text-darkmain">Tailwind CSS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="bg-main text-white py-8 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-sm text-gray-400">&copy; 2024 Taro Yamada. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- インタラクション用JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            /* --- ダークモードトグルの実装 --- */
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // ユーザーの過去の選択またはOSの設定に基づいて初期テーマを決定
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                lightIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                darkIcon.classList.remove('hidden');
+            }
+
+            // トグルボタンクリック時の処理
+            themeToggleBtn.addEventListener('click', function() {
+                // アイコンの切り替え
+                darkIcon.classList.toggle('hidden');
+                lightIcon.classList.toggle('hidden');
+
+                // クラスの切り替えとlocalStorageへの保存
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            });
+
+            /* --- スクロールアニメーション (Intersection Observer) --- */
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // 一度表示されたら監視を解除（再度スクロールしてもアニメーションさせない場合）
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.15, // 15%見えたら発火
+                rootMargin: "0px 0px -50px 0px"
+            });
+
+            revealElements.forEach(el => {
+                revealObserver.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
